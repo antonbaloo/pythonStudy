@@ -1,5 +1,6 @@
 import pvp as pp
-
+import statistic as st
+from statistic import stat
 
 def menu():
     print('Крестики нолики')
@@ -42,7 +43,7 @@ while True:
         print('')
         print('Статистика')
         print('')
-        # break
+        st.printstat(stat)
     elif option == 0:
         print('~~~~~~~~~~~~~~~')
         print('Спасибо за игру')
