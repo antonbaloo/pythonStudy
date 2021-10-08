@@ -277,9 +277,9 @@ def startpvai():
             print('')
             if plrscale == 1:
                 statistic.stat['Player 1']['Win'] += 1
-                statistic.stat['Player 2']['Loose'] += 1
+                statistic.stat['Computer']['Loose'] += 1
             elif plrscale == 2:
-                statistic.stat['Player 2']['Win'] += 1
+                statistic.stat['Computer']['Win'] += 1
                 statistic.stat['Player 1']['Loose'] += 1
             print('')
             print('')
