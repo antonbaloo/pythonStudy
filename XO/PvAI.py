@@ -1,4 +1,5 @@
 import statistic
+from random import randint
 
 
 def fieldsize():
@@ -54,7 +55,7 @@ def showfield():
 def choiseplr():
     print('КТо будет первый ходить? ')
     print('[1] Игрок 1 (Х)')
-    print('[2] Игрок 2 (0)')
+    print('[2] Компьютер (0)')
     global choise
     while True:
         plr = int(input('Выберите пункт меню: '))
@@ -63,7 +64,7 @@ def choiseplr():
             choise = 1
             return choise
         elif plr == 2:
-            print('Игрок 2 (0) ходит первым ')
+            print('Компьютер (0) ходит первым ')
             choise = 2
             return choise
         else:
@@ -73,6 +74,23 @@ def choiseplr():
 
 def plrmove(row, col):
     a[row - 1][col - 1] = plrtag
+
+def plraimove(plrscale, size):
+    global row
+    global col
+    try:
+        if plrscale == 1:
+            row, col = int(input('ВВедите номер строк: ')), int(input('Введите номер столбца: '))
+            return row, col
+        elif plrscale == 2:
+            row, col = randint(1, size), randint(1, size)
+            return row, col
+
+    except ValueError:
+        print('!!!!!!!!!!!!!!!!!!!')
+        print('Нужно вводить число')
+        print('!!!!!!!!!!!!!!!!!!!')
+        return False
 
 
 # def plr1move(row,col):
@@ -110,9 +128,9 @@ def changeplayer(choise, counter):
     elif choise == 1 and counter > 0:
         if counter % 2 != 0:
             plrtag = ['O']
-            player = 'Игрок 2'
+            player = 'Компьютер'
             plrscale = 2
-            print(" Ходит Игрок 2")
+            print(" Ходит Компьютер")
             return plrtag, player, plrscale
         else:
             plrtag = ['X']
@@ -123,9 +141,9 @@ def changeplayer(choise, counter):
 
     elif choise == 2 and counter == 0:
         plrtag = ['O']
-        player = 'Игрок 2'
+        player = 'Компьютер'
         plrscale = 2
-        print(" Ходит Игрок 2")
+        print(" Ходит Компьютер")
         return plrtag, player, plrscale
     elif choise == 2 and counter > 0:
         if counter % 2 != 0:
@@ -136,9 +154,9 @@ def changeplayer(choise, counter):
             return plrtag, player, plrscale
         else:
             plrtag = ['O']
-            player = 'Игрок 2'
+            player = 'Компьютер'
             plrscale = 2
-            print(" Ходит Игрок 2")
+            print(" Ходит Компьютер")
             return plrtag, player, plrscale
 
 
@@ -185,9 +203,40 @@ def checkdiag(player, plrtag, a, size):
                         return True
 
 
+def isdraw(size, counter):
+    if size == 3:
+        if counter == 9:
+            print('Закончились свободные ячейки. Ничья')
+            print('''
 
-def startpvp():
+                ''')
+            return True
+    elif size == 4:
+        if counter == 16:
+            print('Закончились свободные ячейки. Ничья')
+            print('''
+
+                                ''')
+            return True
+    elif size == 5:
+        if counter == 25:
+            print('Закончились свободные ячейки. Ничья')
+            print('''
+
+                                ''')
+            return True
+    elif size == 6:
+        if counter == 36:
+            print('Закончились свободные ячейки. Ничья')
+            print('''
+
+                                ''')
+            return True
+
+
+def startpvai():
     # Выбор размера поля и его вывод на экран
+    global row
     size = fieldsize()
     field(size)
 
@@ -209,12 +258,7 @@ def startpvp():
 
         # Ввод координат хода
 
-        try:
-            row, col = int(input('ВВедите номер строк: ')), int(input('Введите номер столбца: '))
-        except ValueError:
-            print('!!!!!!!!!!!!!!!!!!!')
-            print('Нужно вводить число')
-            print('!!!!!!!!!!!!!!!!!!!')
+        if not plraimove(plrscale, size):
             continue
 
         # Проверки на провильность хода и на наличие в выбраной ячейке Х или О
@@ -249,10 +293,5 @@ def startpvp():
 
         counter += 1
 
-        if size == 3:
-            if counter == 9:
-                print('Закончились свободные ячейки. Ничья')
-                print('''
-
-                    ''')
-                break
+        if isdraw(size, counter):
+            break

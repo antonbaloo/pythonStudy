@@ -1,6 +1,7 @@
 import pvp as pp
 import statistic as st
 from statistic import stat
+import PvAI as ai
 
 def menu():
     print('Крестики нолики')
@@ -38,7 +39,7 @@ while True:
     elif option == 2:
         print('')
         print('Вы выбрали пункт "Игрок против Компьютер"')
-        # break
+        ai.startpvai()
     elif option == 3:
         print('')
         print('Статистика')
